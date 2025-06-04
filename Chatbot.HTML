@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>چت با DeepSeek</title>
+</head>
+<body>
+  <h3>پیام بده به هوش مصنوعی:</h3>
+  <textarea id="msg" rows="4" cols="50"></textarea><br>
+  <button onclick="send()">ارسال</button>
+  <pre id="res"></pre>
+
+  <script>
+    async function send() {
+      const message = document.getElementById("msg").value;
+      const res = await fetch("http://localhost:5000/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message })
+      });
+
+      const data = await res.json();
+      document.getElementById("res").textContent = data.reply || "پاسخی دریافت نشد.";
+    }
+  </script>
+</body>
+</html>
