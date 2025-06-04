@@ -42,7 +42,12 @@ def chat():
 
         print("DeepSeek Response JSON:", data)
 
-        reply = data["choices"][0]["message"]["content"]
+        print("✅ Full Response:", data)  # لاگ گرفتن کامل
+        reply = data.get("choices", [{}])[0].get("message", {}).get("content", "")
+        if not reply:
+            return jsonify({"error": "❌ Unexpected format. No reply found."}), 500
+        return jsonify({"reply": reply})
+
         return jsonify({"reply": reply})
 
     except Exception as e:
