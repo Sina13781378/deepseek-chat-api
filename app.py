@@ -36,17 +36,13 @@ def chat():
         response.raise_for_status()
         data = response.json()
 
-        # بررسی وجود کلیدها
+        # بررسی اینکه آیا کلیدها موجود هستند
         if "choices" not in data or not data["choices"]:
-            return jsonify({"error": "Invalid API response format (no choices)"}), 500
+            return jsonify({"error": "Invalid response: no choices"}), 500
 
-        print("DeepSeek Response JSON:", data)
-
-        print("✅ Full Response:", data)  # لاگ گرفتن کامل
-        reply = data.get("choices", [{}])[0].get("message", {}).get("content", "")
+        reply = data["choices"][0]["message"].get("content", "")
         if not reply:
-            return jsonify({"error": "❌ Unexpected format. No reply found."}), 500
-        return jsonify({"reply": reply})
+            return jsonify({"error": "Invalid response: no reply"}), 500
 
         return jsonify({"reply": reply})
 
