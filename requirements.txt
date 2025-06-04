@@ -6,3 +6,4 @@ flask-cors
 waitress
 google-generativeai
 pandas
+OS
