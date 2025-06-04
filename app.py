@@ -36,16 +36,22 @@ def chat():
         response.raise_for_status()
         data = response.json()
 
-        # بررسی ساختار داده دریافتی
-        choices = data.get("choices")
-        if not choices or "message" not in choices[0] or "content" not in choices[0]["message"]:
-            return jsonify({"error": "❌ Unexpected format. No reply found."}), 500
+        print("🔵 DeepSeek Raw Response:", data)
 
-        reply = choices[0]["message"]["content"]
+        if "choices" not in data or not data["choices"]:
+            return jsonify({"error": "Invalid API response format (no choices)"}), 500
+
+        reply = data["choices"][0].get("message", {}).get("content", "")
+
+        if not reply:
+            return jsonify({"error": "Reply is missing in the response"}), 500
+
         return jsonify({"reply": reply})
 
     except Exception as e:
+        print("🔴 Exception:", str(e))
         return jsonify({"error": str(e)}), 500
+
 
 if __name__ == "__main__":
     serve(app, host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
