@@ -40,6 +40,8 @@ def chat():
         if "choices" not in data or not data["choices"]:
             return jsonify({"error": "Invalid API response format (no choices)"}), 500
 
+        print("DeepSeek Response JSON:", data)
+
         reply = data["choices"][0]["message"]["content"]
         return jsonify({"reply": reply})
 
