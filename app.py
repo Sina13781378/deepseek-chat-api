@@ -1,28 +1,29 @@
 from flask import Flask, request, jsonify
-import os
-from dotenv import load_dotenv
 from flask_cors import CORS
 from waitress import serve
 import google.generativeai as genai
-import pandas as pd
+import os
 
-# Load environment variables
+from dotenv import load_dotenv
 load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
 
-# Configure Gemini API
+# بارگذاری کلید Gemini از فایل .env
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 genai.configure(api_key=GEMINI_API_KEY)
-model = genai.GenerativeModel("gemini-2.0-flash")
 
-# Load Excel data once at startup
-try:
-    df = pd.read_excel("Sefareshat Khareji.xlsx")
-    excel_context = df.to_string(index=False)
-except Exception as e:
-    excel_context = "Failed to load Excel data: " + str(e)
+# بارگذاری مدل
+model = genai.GenerativeModel("gemini-1.5-flash")
+
+# تابع برای خواندن محتوای فایل .txt
+def load_flat_file(file_path):
+    try:
+        with open(file_path, "r", encoding="utf-8") as file:
+            return file.read()
+    except Exception as e:
+        return f"خطا در خواندن فایل: {str(e)}"
 
 @app.route("/api/chat", methods=["POST"])
 def chat():
@@ -31,13 +32,21 @@ def chat():
         if not user_msg:
             return jsonify({"error": "No message provided"}), 400
 
-        full_prompt = (
-            "You are an assistant that answers questions based on this dataset:\n"
-            + excel_context +
-            "\n\nUser question: " + user_msg
-        )
+        # خواندن محتوای فایل فلت
+        flat_data = load_flat_file("Sefareshat Khareji.txt")
 
-        response = model.generate_content(full_prompt)
+        # ایجاد پرامپت ترکیبی برای Gemini
+        prompt = f"""
+        این اطلاعات سفارشات خارجی ماست (در قالب فایل متنی):
+
+        {flat_data}
+
+        حالا به سوال زیر بر اساس همین اطلاعات پاسخ بده:
+        {user_msg}
+        """
+
+        # ارسال به Gemini
+        response = model.generate_content(prompt)
         return jsonify({"reply": response.text})
 
     except Exception as e:
