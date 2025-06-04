@@ -8,7 +8,7 @@ from waitress import serve
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app, origins=["*"])
+CORS(app)
 
 API_URL = "https://api.deepseek.com/v1/chat/completions"
 API_KEY = os.getenv("DEEPSEEK_API_KEY")
@@ -36,14 +36,12 @@ def chat():
         response.raise_for_status()
         data = response.json()
 
-        # بررسی اینکه آیا کلیدها موجود هستند
-        if "choices" not in data or not data["choices"]:
-            return jsonify({"error": "Invalid response: no choices"}), 500
+        # بررسی ساختار داده دریافتی
+        choices = data.get("choices")
+        if not choices or "message" not in choices[0] or "content" not in choices[0]["message"]:
+            return jsonify({"error": "❌ Unexpected format. No reply found."}), 500
 
-        reply = data["choices"][0]["message"].get("content", "")
-        if not reply:
-            return jsonify({"error": "Invalid response: no reply"}), 500
-
+        reply = choices[0]["message"]["content"]
         return jsonify({"reply": reply})
 
     except Exception as e:
