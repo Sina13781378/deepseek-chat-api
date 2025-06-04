@@ -13,7 +13,6 @@ CORS(app, origins=["*"])
 API_URL = "https://api.deepseek.com/v1/chat/completions"
 API_KEY = os.getenv("DEEPSEEK_API_KEY")
 
-
 @app.route("/api/chat", methods=["POST"])
 def chat():
     try:
@@ -37,13 +36,15 @@ def chat():
         response.raise_for_status()
         data = response.json()
 
+        # بررسی وجود کلیدها
+        if "choices" not in data or not data["choices"]:
+            return jsonify({"error": "Invalid API response format (no choices)"}), 500
+
         reply = data["choices"][0]["message"]["content"]
         return jsonify({"reply": reply})
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-
 if __name__ == "__main__":
-    app.run(debug=True)
-
+    serve(app, host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
