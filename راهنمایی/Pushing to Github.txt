@@ -1,4 +1,0 @@
-git remote add origin https://github.com/Sina13781378/deepseek-chat-api.git فقط و فقط اولین بار دفعات بعدی دیگه به عنوان Origin شناسایی خواهد شد
-git add .
-git commit -m Update
-git push origin main
