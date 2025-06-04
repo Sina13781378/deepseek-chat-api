@@ -3,7 +3,8 @@ import os
 from dotenv import load_dotenv
 from flask_cors import CORS
 from waitress import serve
-from google import genai
+import google.generativeai as genai
+
 
 load_dotenv()
 
