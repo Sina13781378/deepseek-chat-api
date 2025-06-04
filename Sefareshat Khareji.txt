@@ -1,0 +1,17 @@
+EmailCode,Company,EmpName,TransportationName,Cargo,Productiondurationestimation,Price,Currency,GrossWeight,Place of loading,DeliveryTerm,transportationDurationestimatioin,InquiryDuration,OrderregistrationDuration,Paymentduration,ProductionDuration,TransportationDuration,ClearanceDuration
+HG20231014,ICDOC,Sina Doorstkar,Rahvand,Sieves Panels,90,10313.48,Euro,834,Netherlands,Fca,88,183,31,71,107,97,
+HG20231025,Vidremot,Sina Doorstkar,Rahvand,Cooler And plunger,5,33600,Euro,200,Spain,Exw,30,141,56,180,9,39,43
+HG20231045,Y-ic Check,Sina Doorstkar,Rahvand,Vertical Load tester,60,63765,Cny,188,China,Exw,14,342,58,28,73,12,45
+HG20231051,Iran Tablo,Sina Doorstkar,Iran Europe,Servo Motor,90,6550,Euro,33,Turkey,Fca,30,,,,90,35,
+HG20231062,Lane,Sina Doorstkar,Iran Europe,Lehr Belt,105,52525.900000000001,Euro,6833,England,Exw,40,55,52,112,104,40,
+HG20231020,Rondot,Sina Doorstkar,Iran Europe,Stainless Steel scoops,20,36888,Euro,16.84,France,Exw,25,93,,,16,21,17
+-,Ming Wei,Sina Doorstkar,Rahvand,Spare Parts for packaging machine,250,9580,Euro,6,Taiwan,Fca,30,,,40,399,23,
+HG20231068,Sentesbir,Zahra Mirmoeini,Iran Europe,Nickel Powder,,36300,Euro,1100,Turkey,Fca,35,,,107,,,
+HG20231061,Set,Zahra Mirmoeini,Iran Europe,Alshaeir Plunger,,2140,Euro,13,Turkey,Fca,47,93,,,,,21
+HG20231026,ICDOC,Zahra Mirmoeini,Rahvand,Simotics Sd motor,100,11370,Euro,612,Netherlands,Fca,50,48,43,48,98,106,
+HG20231037,Pneumofore,Zahra Mirmoeini,Iran Europe,Vaccum Pump oil,60,11613.75,Euro,722,Germany,Fca,50,21,110,24,62,47,
+HG20231019,GianCarlo Perego,Zahra Mirmoeini,Iran Europe,Glass Mould equipment,90,237600,Euro,6180,Italy,Exw,80,116,,,204,82,
+HG20231022,Shanghai Precision,Sina Doorstkar,Rahvand,Gear Motors,90,62980,Euro,3896,China,Fca,50,89,204,93,100,52,65
+HG20231025,Omco,Sina Doorstkar,Iran Europe,Glass Mould equipment,80,101365,Euro,2337,Turkey,Fca,40,173,-132,381,132,35,25
+HG20241013,Pneumofore,Sina Doorstkar,Iran Europe,Vaccum Pump oil,100,15485,Euro,936,Italy,Fca,35,25,134,-107,130,53,22
+HG20241001,GianCarlo Perego,Zahra Mirmoeini,Iran Europe,Glass Mould equipment,7,98018,Euro,2864,Italy,Exw,30,,,109,7,54,
