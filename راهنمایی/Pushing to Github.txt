@@ -1,0 +1,5 @@
+git remote add origin https://github.com/Sina13781378/deepseek-chat-api.git
+git add .
+git commit -m 
+git pull origin main --rebase
+git push origin main

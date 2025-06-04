@@ -3,10 +3,11 @@ import requests
 import os
 from dotenv import load_dotenv
 from flask_cors import CORS
+from waitress import serve
 
 load_dotenv()
 app = Flask(__name__)
-CORS(app, origins="*")
+CORS(app, origins=["https://commercial-documents-analysis.ir"])
 
 API_URL = "https://api.deepseek.com/v1/chat/completions"
 API_KEY = os.getenv("DEEPSEEK_API_KEY")
@@ -31,4 +32,5 @@ def chat():
         return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5000)
+    serve(app, host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+
