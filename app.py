@@ -3,8 +3,8 @@ from flask_cors import CORS
 from waitress import serve
 import google.generativeai as genai
 import os
-
 from dotenv import load_dotenv
+
 load_dotenv()
 
 app = Flask(__name__)
@@ -17,7 +17,7 @@ genai.configure(api_key=GEMINI_API_KEY)
 # بارگذاری مدل
 model = genai.GenerativeModel("gemini-1.5-flash")
 
-# تابع برای خواندن محتوای فایل .txt
+# خواندن محتوای فایل متنی
 def load_flat_file(file_path):
     try:
         with open(file_path, "r", encoding="utf-8") as file:
@@ -32,20 +32,18 @@ def chat():
         if not user_msg:
             return jsonify({"error": "No message provided"}), 400
 
-        # خواندن محتوای فایل فلت
+        # خواندن داده‌ها از فایل فلت
         flat_data = load_flat_file("Sefareshat Khareji.txt")
 
-        # ایجاد پرامپت ترکیبی برای Gemini
         prompt = f"""
-        این اطلاعات سفارشات خارجی ماست (در قالب فایل متنی):
+        اطلاعات سفارشات خارجی شرکت در ادامه آمده است:
 
         {flat_data}
 
-        حالا به سوال زیر بر اساس همین اطلاعات پاسخ بده:
+        لطفاً فقط بر اساس اطلاعات بالا به این پرسش پاسخ بده:
         {user_msg}
         """
 
-        # ارسال به Gemini
         response = model.generate_content(prompt)
         return jsonify({"reply": response.text})
 
